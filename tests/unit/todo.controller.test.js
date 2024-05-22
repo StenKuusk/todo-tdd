@@ -18,7 +18,7 @@ describe('TodoController.createTodo', () => {
     beforeEach(() => {
         req.body = newTodo;
     });
-    
+
     it('should have a createTodo function', () => {
         expect(typeof TodoController.createTodo).toBe('function');
     });
@@ -62,12 +62,10 @@ describe('TodoController.getTodos', () => {
         expect(res._getJSONData()).toStrictEqual(allTodos);
     });
     it('should handle errors in getTodos', async () => {
-        /*
-        const errorMessage = { message: 'Done property missing' };
+        const errorMessage = { message: 'Error fetching todos' };
         const rejectedPromise = Promise.reject(errorMessage);
-        TodoModel.create.mockReturnValue(rejectedPromise);
-        await TodoController.createTodo(req, res, next);
-        expect(next).toBeCalledWith(errorMessage);
-        */
+        TodoModel.find.mockReturnValue(rejectedPromise);
+        await TodoController.getTodos(req, res, next);
+        expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });

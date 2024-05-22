@@ -5,7 +5,7 @@ const createTodo = async (req, res, next) => {
         const createdModel = await TodoModel.create(req.body);
         res.status(201).json(createdModel);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error)
     }
 };
 
@@ -14,7 +14,7 @@ const getTodos = async (req, res, next) => {
         const allTodos = await TodoModel.find({});
         res.status(200).json(allTodos);
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        next(error)
     }
 };
 
